@@ -115,8 +115,8 @@ public final class MusicGroupImpl implements MusicGroup {
             return songName;
         }
 
-        public Optional<String> getAlbumName() {
-            return albumName;
+            public Optional<String> getAlbumName() {
+                return albumName;
         }
 
         public double getDuration() {

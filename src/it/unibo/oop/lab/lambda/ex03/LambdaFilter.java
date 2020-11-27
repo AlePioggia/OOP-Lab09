@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,7 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
+import java.util.*;
 /**
  * Modify this small program adding new filters.
  * Realize this exercise using as much as possible the Stream library.
@@ -35,8 +37,23 @@ public final class LambdaFilter extends JFrame {
     private static final long serialVersionUID = 1760990730218643730L;
 
     private enum Command {
-        IDENTITY("No modifications", Function.identity());
-
+        IDENTITY("No modifications", Function.identity()),
+        LOWERCASE("Converts to lowercase", s -> s.toLowerCase()),
+        TOTAL_CHARS("Counts the number of chars", s ->  {
+            Long characters = s.chars().count();
+            return characters.toString();
+        }),
+        TOTAL_LINES("Counts the number of given lines", s -> {
+            Long l = s.lines().count();
+            return l.toString();
+        }),
+        ALPHABETICAL_SORT("Lists words in alphabetical order",s -> {
+              //W++, I want that everything that ain't a word won't be counted
+              return Stream.of(s.split("\\W+")).sorted().collect(Collectors.toList()).toString();
+        }),
+        WORD_INDEX("Concatenates Word<index> to each one", s -> {
+            return Stream.of(s.split("\\W+")).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).toString();
+        });
         private final String commandName;
         private final Function<String, String> fun;
 
@@ -81,6 +98,8 @@ public final class LambdaFilter extends JFrame {
         final int sh = (int) screen.getHeight();
         setSize(sw / 4, sh / 4);
         setLocationByPlatform(true);
+        
+        
     }
 
     /**
