@@ -52,7 +52,9 @@ public final class LambdaFilter extends JFrame {
               return Stream.of(s.split("\\W+")).sorted().collect(Collectors.toList()).toString();
         }),
         WORD_INDEX("Concatenates Word<index> to each one", s -> {
-            return Stream.of(s.split("\\W+")).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).toString();
+            return Stream.of(s.split("\\W+"))
+                    .collect(Collectors.groupingBy(Function.identity(),
+                             Collectors.counting())).toString();
         });
         private final String commandName;
         private final Function<String, String> fun;

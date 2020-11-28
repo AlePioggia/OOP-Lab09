@@ -66,7 +66,6 @@ public final class LambdaUtilities {
          * Suggestion: consider Optional.filter
          */  
         final List<Optional<T>> l = new ArrayList<>();
-        
         list.forEach(val -> {     
             l.add(Optional.of(val).filter(pre));
         });
@@ -92,9 +91,9 @@ public final class LambdaUtilities {
         });
         return map;
     }
-    //meglio HashSet
-    private static <T> TreeSet<T> inizializeTreeSet(T l) {
-        return new TreeSet<>(Arrays.asList(l));
+    
+    private static <T> HashSet<T> inizializeTreeSet(T l) {
+        return new HashSet<>(Arrays.asList());
     }
     /**
      * @param map
