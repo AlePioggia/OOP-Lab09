@@ -1,5 +1,6 @@
 package it.unibo.oop.lab.lambda.ex03;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import java.util.*;
+
 /**
  * Modify this small program adding new filters.
  * Realize this exercise using as much as possible the Stream library.
@@ -47,7 +48,7 @@ public final class LambdaFilter extends JFrame {
             Long l = s.lines().count();
             return l.toString();
         }),
-        ALPHABETICAL_SORT("Lists words in alphabetical order",s -> {
+        ALPHABETICAL_SORT("Lists words in alphabetical order", s -> {
               //W++, I want that everything that ain't a word won't be counted
               return Stream.of(s.split("\\W+")).sorted().collect(Collectors.toList()).toString();
         }),
@@ -100,8 +101,6 @@ public final class LambdaFilter extends JFrame {
         final int sh = (int) screen.getHeight();
         setSize(sw / 4, sh / 4);
         setLocationByPlatform(true);
-        
-        
     }
 
     /**

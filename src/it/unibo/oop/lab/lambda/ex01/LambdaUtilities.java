@@ -2,14 +2,13 @@ package it.unibo.oop.lab.lambda.ex01;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
+
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -64,9 +63,9 @@ public final class LambdaUtilities {
     public static <T> List<Optional<T>> optFilter(final List<T> list, final Predicate<T> pre) {
         /*
          * Suggestion: consider Optional.filter
-         */  
+        */
         final List<Optional<T>> l = new ArrayList<>();
-        list.forEach(val -> {     
+        list.forEach(val -> {
             l.add(Optional.of(val).filter(pre));
         });
         return l;
@@ -85,14 +84,17 @@ public final class LambdaUtilities {
      *         based on the mapping done by the function
      */
     public static <R, T> Map<R, Set<T>> group(final List<T> list, final Function<T, R> op) {
-        final Map<R,Set<T>> map = new HashMap<>();
+        final Map<R, Set<T>> map = new HashMap<>();
         list.forEach(l -> {
-           map.merge(op.apply(l), inizializeTreeSet(l), (k,v) -> { k.addAll(v); return k; });
+           map.merge(op.apply(l), inizializeTreeSet(l), (k, v) -> {
+        	   k.addAll(v);
+        	   return k; 
+           });
         });
         return map;
     }
-    
-    private static <T> HashSet<T> inizializeTreeSet(T l) {
+
+    private static <T> HashSet<T> inizializeTreeSet(final T l) {
         return new HashSet<>(Arrays.asList());
     }
     /**
@@ -113,8 +115,8 @@ public final class LambdaUtilities {
          * 
          * Keep in mind that a map can be iterated through its forEach method
          */
-        final Map<K,V> bMap = new HashMap<>();
-        map.forEach((k,v) -> {
+        final Map<K, V> bMap = new HashMap<>();
+        map.forEach((k, v) -> {
             bMap.put(k, v.orElseGet(def));
         });
         return bMap;
